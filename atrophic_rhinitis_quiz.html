@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Atrophic Rhinitis Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .options label {
+      display: block;
+      margin: 6px 0;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options label:hover {
+      background: #f1f1f1;
+    }
+    .correct {
+      background-color: #d4edda !important;
+      border-color: #28a745 !important;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da !important;
+      border-color: #dc3545 !important;
+      color: #721c24;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #result {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Atrophic Rhinitis in Pigs: Quiz</h1>
+    <form id="quizForm">
+
+      <div class="question">
+        <p>1. Which bacterium is the primary cause of non-progressive atrophic rhinitis (NPAR)?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="A"> Pasteurella multocida</label>
+          <label><input type="radio" name="q1" value="B"> Bordetella bronchiseptica</label>
+          <label><input type="radio" name="q1" value="C"> Escherichia coli</label>
+          <label><input type="radio" name="q1" value="D"> Staphylococcus aureus</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. What is the main toxin produced by Pasteurella multocida that drives progressive AR?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="A"> Tracheal cytotoxin (TCT)</label>
+          <label><input type="radio" name="q2" value="B"> Adenylate cyclase toxin (ACT)</label>
+          <label><input type="radio" name="q2" value="C"> Dermonecrotic toxin (DNT)</label>
+          <label><input type="radio" name="q2" value="D"> Pasteurella multocida toxin (PMT)</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Which of the following is a gross lesion characteristic of progressive AR (PAR)?</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="A"> Catarrhal rhinitis only</label>
+          <label><input type="radio" name="q3" value="B"> Snout distortion and turbinate atrophy</label>
+          <label><input type="radio" name="q3" value="C"> Epithelial hyperplasia</label>
+          <label><input type="radio" name="q3" value="D"> Mild neutrophilic infiltration</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. How does Bordetella bronchiseptica facilitate Pasteurella multocida colonization?</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="A"> By producing PMT toxin</label>
+          <label><input type="radio" name="q4" value="B"> By directly attaching to bone tissue</label>
+          <label><input type="radio" name="q4" value="C"> By damaging the nasal mucosa with toxins</label>
+          <label><input type="radio" name="q4" value="D"> By suppressing P. multocida growth</label>
+        </div>
+      </div>
+
+      <button type="button" onclick="checkAnswers()">Submit</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      const answers = {
+        q1: "B",
+        q2: "D",
+        q3: "B",
+        q4: "C"
+      };
+
+      let score = 0;
+      let total = Object.keys(answers).length;
+
+      for (let q in answers) {
+        let options = document.querySelectorAll(`input[name="${q}"]`);
+        options.forEach(option => {
+          let label = option.parentElement;
+          label.classList.remove("correct", "incorrect");
+          if (option.checked) {
+            if (option.value === answers[q]) {
+              label.classList.add("correct");
+              score++;
+            } else {
+              label.classList.add("incorrect");
+            }
+          }
+          // Mark the correct answer if user got it wrong
+          if (option.value === answers[q] && !option.checked) {
+            label.classList.add("correct");
+          }
+        });
+      }
+
+      document.getElementById("result").innerText = `You scored ${score} out of ${total}!`;
+    }
+  </script>
+</body>
+</html>
